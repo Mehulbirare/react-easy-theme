@@ -1,8 +1,8 @@
-# React Easy Theme
+# @react-easy-theme/core
 
 A zero-configuration, lightweight, fully typed React theme management system. Built for modern web development, designed to "just work" with Next.js, Vite, Create React App, and Tailwind CSS.
 
-[![npm version](https://img.shields.io/npm/v/react-easy-theme.svg?style=flat-square)](https://www.npmjs.com/package/react-easy-theme)
+[![npm version](https://img.shields.io/npm/v/@react-easy-theme/core.svg?style=flat-square)](https://www.npmjs.com/package/@react-easy-theme/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 
@@ -22,11 +22,11 @@ A zero-configuration, lightweight, fully typed React theme management system. Bu
 ## Installation 📦
 
 ```bash
-npm install react-easy-theme
+npm install @react-easy-theme/core
 # or
-yarn add react-easy-theme
+yarn add @react-easy-theme/core
 # or
-pnpm add react-easy-theme
+pnpm add @react-easy-theme/core
 ```
 
 ---
@@ -40,7 +40,7 @@ Wrap your root component with `ThemeProvider`.
 ```tsx
 // src/App.tsx or src/main.tsx
 import React from 'react';
-import { ThemeProvider } from 'react-easy-theme';
+import { ThemeProvider } from '@react-easy-theme/core';
 import { Layout } from './Layout';
 
 const App = () => {
@@ -73,7 +73,7 @@ Access the current theme and toggle it anywhere in your app using `useTheme`.
 ```tsx
 // src/components/Header.tsx
 import React from 'react';
-import { useTheme } from 'react-easy-theme';
+import { useTheme } from '@react-easy-theme/core';
 
 const Header = () => {
   const { theme, toggleTheme, resolvedTheme } = useTheme();
@@ -126,7 +126,7 @@ To prevent hydration mismatch warning in Next.js, follow this pattern (especiall
 
 ```tsx
 // app/layout.tsx
-import { ThemeProvider } from 'react-easy-theme';
+import { ThemeProvider } from '@react-easy-theme/core';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
