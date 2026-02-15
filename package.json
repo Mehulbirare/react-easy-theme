@@ -1,6 +1,6 @@
 {
     "name": "@react-easy-theme/core",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Zero-configuration, lightweight, fully typed React theme management system.",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -31,7 +31,9 @@
         "css-variables",
         "tailwind",
         "hooks",
-        "provider"
+        "provider",
+        "react-easy-theme",
+        "easy-theme"
     ],
     "author": "Mehulbirare",
     "license": "MIT",
