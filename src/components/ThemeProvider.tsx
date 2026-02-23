@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { ThemeName, ThemeVariables, ThemeProviderProps } from '../types/theme.types';
 import { getStorageTheme, setStorageTheme } from '../core/storage';
-import { getSystemTheme, subscribeToSystemTheme } from '../core/systemDetector';
+import { getSystemTheme, subscribeToSystemTheme, getReducedMotion, subscribeToReducedMotion } from '../core/systemDetector';
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     children,
@@ -28,6 +28,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         return (theme === 'light' || theme === 'dark') ? theme : 'light';
     });
 
+    const [shouldReduceMotion, setShouldReduceMotion] = useState(() => getReducedMotion());
+
     const [mounted, setMounted] = useState(false);
 
     // Hydration mismatch handling
@@ -49,6 +51,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
             return () => unsubscribe();
         }
     }, [theme]);
+
+    // Reduced motion listener
+    useEffect(() => {
+        const unsubscribe = subscribeToReducedMotion((reduce) => {
+            setShouldReduceMotion(reduce);
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     // Update resolved theme when `theme` state changes
     useEffect(() => {
@@ -99,13 +110,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         root.style.colorScheme = resolvedTheme;
 
         // 4. Transitions
-        if (enableTransition) {
+        if (enableTransition && !shouldReduceMotion) {
             root.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-            // Cleanup transition just in case it interferes with later layout changes?
-            // Let's leave it, standard practice for these libs.
+        } else {
+            root.style.transition = 'none';
         }
 
-    }, [theme, resolvedTheme, themes, mounted, syncWithTailwind, enableTransition]);
+    }, [theme, resolvedTheme, themes, mounted, syncWithTailwind, enableTransition, shouldReduceMotion]);
 
     const setTheme = useCallback((newTheme: ThemeName) => {
         setThemeState(newTheme);

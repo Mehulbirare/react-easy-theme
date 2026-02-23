@@ -15,6 +15,7 @@ A zero-configuration, lightweight, fully typed React theme management system. Bu
 *   **Tailwind Compatible**: Works seamlessly with Tailwind's `dark` class strategy.
 *   **CSS Variables**: Fully customizable using native CSS variables for high performance.
 *   **Animated Transitions**: Smooth transitions between themes built-in.
+*   **Reduced Motion Support**: Automatically respects OS-level reduced motion settings for accessibility.
 *   **Fully Typed**: Written in TypeScript with complete type definitions.
 
 ---

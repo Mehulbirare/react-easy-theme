@@ -5,6 +5,11 @@ export const getSystemTheme = (): SystemTheme => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
+export const getReducedMotion = (): boolean => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+};
+
 export const subscribeToSystemTheme = (callback: (theme: SystemTheme) => void): () => void => {
     if (typeof window === 'undefined') return () => { };
 
@@ -19,7 +24,24 @@ export const subscribeToSystemTheme = (callback: (theme: SystemTheme) => void): 
         mediaQuery.addEventListener('change', handleChange);
         return () => mediaQuery.removeEventListener('change', handleChange);
     } else {
-        // Fallback for older browsers (optional, but good for robust support)
+        mediaQuery.addListener(handleChange);
+        return () => mediaQuery.removeListener(handleChange);
+    }
+};
+
+export const subscribeToReducedMotion = (callback: (reduce: boolean) => void): () => void => {
+    if (typeof window === 'undefined') return () => { };
+
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleChange = (e: MediaQueryListEvent) => {
+        callback(e.matches);
+    };
+
+    if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleChange);
+        return () => mediaQuery.removeEventListener('change', handleChange);
+    } else {
         mediaQuery.addListener(handleChange);
         return () => mediaQuery.removeListener(handleChange);
     }

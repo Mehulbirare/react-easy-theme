@@ -13,7 +13,7 @@
 - [ ] **Next.js Script Component**: A dedicated `<Script />` component for Next.js App Router to eliminate FOUC completely.
 - [ ] **Custom Theme Definition**: Allow users to pass a function to generate themes dynamically (e.g. based on a base color).
 - [ ] **Scoped Theming**: Ability to nest `ThemeProvider` and have component-level theme overrides.
-- [ ] **Reduced Motion**: Respect `prefers-reduced-motion` for transitions.
+- [x] **Reduced Motion**: Respect `prefers-reduced-motion` for transitions.
 - [ ] **SSR Utilities**: `getServerSideTheme` helper for reading cookies if needed.
 
 ## Phase 3: Ecosystem (Q3 2026)

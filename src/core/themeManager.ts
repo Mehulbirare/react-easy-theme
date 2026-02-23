@@ -18,12 +18,12 @@ export const applyTheme = (
     });
 
     // Handle Transitions
-    if (enableTransition) {
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (enableTransition && !prefersReducedMotion) {
         root.style.setProperty('transition', 'background-color 0.3s ease, color 0.3s ease');
-        // Remove transition after it completes to avoid performance hit on other changes? 
-        // Usually keeping it is fine if scoped to specific properties.
     } else {
-        root.style.removeProperty('transition');
+        root.style.setProperty('transition', 'none');
     }
 
     // Tailwind Dark Mode Class Strategy
